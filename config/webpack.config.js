@@ -84,7 +84,7 @@ module.exports = function(webpackEnv) {
       isEnvDevelopment && require.resolve('style-loader'),
       isEnvProduction && {
         loader: MiniCssExtractPlugin.loader,
-        options: shouldUseRelativeAssetPaths ? { publicPath: '../../' } : {},
+        options: shouldUseRelativeAssetPaths ? { publicPath: '../../'} : {},
       },
       {
         loader: require.resolve('css-loader'),
@@ -434,6 +434,13 @@ module.exports = function(webpackEnv) {
               exclude: cssModuleRegex,
               use: getStyleLoaders({
                 importLoaders: 1,
+                modules: {
+                  mode: 'local',
+                  localIdentName: '[name]__[local]--[hash:base64:5]',
+                  /* context: path.resolve(__dirname, 'src'),
+                  hashPrefix: 'my-custom-hash', */
+                },
+                // localIdentName: '[name]__[local]--[hash:base64:5]',
                 sourceMap: isEnvProduction && shouldUseSourceMap,
               }),
               // Don't consider CSS imports dead code even if the
